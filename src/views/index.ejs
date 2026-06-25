@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Movies</title>
+</head>
+<body>
+  <form action="/" method="POST">
+    <input name="title" placeholder="Title">
+    <input name="director" placeholder="Director">
+    <input name="year" placeholder="Year">
+    <button type="submit">Add</button>
+  </form>
+ 
+    <% movies.forEach(movie => { %>
+      <p><strong>Id: <%= movie.id %></strong></p>
+      <p><strong>Title: <%= movie.title %></strong></p>
+      <p>Director: <%= movie.director %></p>
+      <p>Year Released: <%= movie.year %></p>
+      <form action="/<%= movie.id %>/delete" method="POST">
+        <button type="submit">Delete</button>
+      </form>
+      <p>------</p>
+  <%  }); %>
+</body>
+</html>
