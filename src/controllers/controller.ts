@@ -59,20 +59,59 @@ export const createMovie = (
     res.render("index", {movies})
 }
 
-export const editPage = (req:Request, res:Response) {
-    
+export const getEditPage = (req:Request, res:Response) => {
+    const id = Number(req.params.id)
+    const movie = movies.find((m) => m.id === id)
+
+    if(!movie) {
+        throw new ApiError(404, 'No movie found. --threw.')
+    }
+    res.render("edit", {movie})
 }
 
+
+export const patchMovie = (req:Request, res:Response) => {
+    const id = Number(req.params.id)
+    const movie = movies.find((m) => m.id === id)
+
+    if(!movie) {
+        throw new ApiError(404, 'No movie found by this id')
+    }
+
+    movie.title = req.body.title || movie.title;
+    movie.director = req.body.director || movie.director
+    movie.year = req.body.year ? Number(req.body.year) : movie.year
+
+    res.redirect(`/${movie.id}`)
+
+}
+
+export const updateMovie = (req:Request, res:Response) => {
+    const id = Number(req.params.id)
+    const index = movies.findIndex((m) => m.id === id)
+    if(index === -1) {
+        throw new ApiError(404,'No movie found.')
+    }
+    const updatedMovie: Movie = {
+        id,
+        title: req.body.title,
+        director: req.body.director,
+        year: Number(req.body.year),
+    };
+
+    movies[index] = updatedMovie;
+
+    res.redirect(`/${id}`)
+}
 export const deleteMovie = (req:Request<{id:string}>, res:Response) =>{
     const id = Number(req.params.id)
-    const index = movies.findIndex((i) => i.id === id)
+    const movieExists = movies.some((m) => m.id === id)
 
-    if(index === -1) {
-        throw new ApiError(404, 'No movie found --threw')
+    if(!movieExists) {
+        throw new ApiError(404, "No movie found.")
     }
-    
-    movies.splice(index, 1)
-    res.redirect('/')
-
+    movies = movies.filter((m) => m.id !== id)
+    console.log('movie deleted!')
+    res.redirect("/")
 }
 

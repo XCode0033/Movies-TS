@@ -18,9 +18,10 @@
       <p><strong>Title: <%= movie.title %></strong></p>
       <p>Director: <%= movie.director %></p>
       <p>Year Released: <%= movie.year %></p>
-      <form action="/<%= movie.id %>/delete" method="POST">
+      <form action="/<%= movie.id %>?_method=DELETE" method="POST">
         <button type="submit">Delete</button>
       </form>
+      <a href="/<%= movie.id %>/edit">Edit Movie</a>
       <p>------</p>
   <%  }); %>
 </body>

@@ -7,7 +7,7 @@
     "start:build": "tsc -w",
     "start:run": "nodemon build/index.js",
     "start": "concurrently npm:start:*",
-    "build":"tsc"
+    "build": "tsc"
   },
   "license": "ISC",
   "type": "commonjs",
@@ -17,11 +17,13 @@
     "express": "^5.2.1",
     "express-validator": "^7.3.2",
     "method": "^2.0.0",
+    "method-override": "^3.0.0",
     "nodemon": "^3.1.14"
   },
   "devDependencies": {
     "@types/ejs": "^3.1.5",
     "@types/express": "^5.0.6",
+    "@types/method-override": "^3.0.0",
     "@types/node": "^22.0.0",
     "typescript": "^5.9.3"
   }
